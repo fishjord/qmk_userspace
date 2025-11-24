@@ -24,6 +24,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         return OLED_ROTATION_90;
     }
 }
+
 static void render_qmk_logo(void) {
     static const char PROGMEM qmk_logo[] = {// 'qmk_via_OLED_128x64', 64x128px
                                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xf8, 0xf8, 0x00, 0x00, 0x00, 0xf0, 0xf8, 0xf8, 0x00, 0x00, 0x00, 0xf0, 0xf8, 0xf8, 0x00, 0x00, 0x00, 0xf0, 0xf8, 0xf8, 0x00, 0x00, 0x00, 0xf0, 0xf8, 0xf8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xf8, 0xfc, 0xfe, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xfe, 0xfe, 0xfe, 0xfe, 0xfc, 0xf8, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc7, 0xc7, 0xc7, 0xc7, 0xc7, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
@@ -36,6 +37,7 @@ static void render_qmk_logo(void) {
     oled_write_raw_P(qmk_logo, sizeof(qmk_logo));
     // oled_write_P(qmk_logo, false);
 }
+
 static void render_logo(void) {
     // @todo - should we split this into a seperate file? kb16 has a good example.
     static const char PROGMEM sofle_pico_logo[] = {// 'sofle-pico-vector-logo-v5 OLED chopped', 64x128px
@@ -49,8 +51,61 @@ static void render_logo(void) {
     oled_write_raw_P(sofle_pico_logo, sizeof(sofle_pico_logo));
 }
 
+void render_rgb_status(void) {
+    char *mode_name = strdup(rgb_matrix_get_mode_name(rgb_matrix_get_mode()));
+    if (mode_name != NULL) {
+        int  len             = strlen(mode_name);
+        bool capitalize_next = true;
+        for (int i = 0; i < len; i++) {
+            if (i == 21 && mode_name[i] == '_') {
+                continue; // Skip the underscore if it's the 22nd character
+            }
+            if (mode_name[i] == '_') {
+                mode_name[i]    = ' ';
+                capitalize_next = true;
+            } else if (capitalize_next) {
+                mode_name[i]    = mode_name[i] >= 'a' && mode_name[i] <= 'z' ? mode_name[i] - 'a' + 'A' : mode_name[i];
+                capitalize_next = false;
+            } else {
+                mode_name[i] = mode_name[i] >= 'A' && mode_name[i] <= 'Z' ? mode_name[i] - 'A' + 'a' : mode_name[i];
+            }
+        }
+
+        // Add line break and spaces if necessary
+        if (len < 19) {
+            strcat(mode_name, "\n");
+            for (int i = 0; i < 21; i++) {
+                strcat(mode_name, " ");
+            }
+        } else {
+            // Find the most recent ' ' before the 21st character and replace it with a line break
+            int break_pos = -1;
+            for (int i = 18; i >= 0; i--) {
+                if (mode_name[i] == ' ') {
+                    break_pos = i;
+                    break;
+                }
+            }
+            if (break_pos >= 0) {
+                mode_name[break_pos] = '\n';
+                for (int i = 0; i < (21 - (len - break_pos - 1)); i++) {
+                    strcat(mode_name, " ");
+                }
+            } else {
+                // No '_' found, just add spaces
+                for (int i = 0; i < (21 - len); i++) {
+                    strcat(mode_name, " ");
+                }
+            }
+        }
+
+        oled_write_P(PSTR(mode_name), false);
+        free(mode_name);
+    }
+}
+
 static void render_status(void) {
-    oled_write_P(PSTR("Sofle Pico\nv3.04\n~~~~~~~~~\n"), false);
+    oled_write_P(PSTR("Sofle Pico\n~~~~~~~~~~\n"), false);
 
     os_variant_t detected_os = detected_host_os();
     oled_write_P(PSTR("\nOS: "), false);
@@ -71,10 +126,6 @@ static void render_status(void) {
             oled_write_P(PSTR("Unk  "), false);
             break;
     }
-
-    const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
-    oled_write_P(PSTR("\nRGB: "), false);
-    oled_write_P(PSTR(effect_name), false);
 
     led_t led_state = host_keyboard_led_state();
     oled_write_P(PSTR("\n\nLock: "), false);
@@ -103,6 +154,9 @@ static void render_status(void) {
             oled_write_P(PSTR("Unk  "), false);
             break;
     }
+
+    oled_write_P(PSTR("\n\n"), false);
+    render_rgb_status();
 }
 
 bool oled_task_user(void) {
@@ -138,4 +192,21 @@ bool oled_task_user(void) {
     }
     return false;
 }
+
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    if (bootloader) {
+        oled_write_P(PSTR("Awaiting New Firmware\n"), false);
+    } else {
+        oled_write_P(PSTR("Rebooting\n"), false);
+    }
+
+    oled_render_dirty(true);
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
+    return true;
+}
+
 #endif
