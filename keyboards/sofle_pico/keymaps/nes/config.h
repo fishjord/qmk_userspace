@@ -17,3 +17,5 @@
 
 #define OLED_FADE_OUT
 #define OLED_FADE_OUT_INTERVAL 15
+
+#define SPLIT_HAND_PIN GP18
