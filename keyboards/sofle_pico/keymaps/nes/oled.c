@@ -134,8 +134,8 @@ static void render_status(void) {
 }
 
 bool oled_task_user(void) {
-            oled_clear();
-            render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    oled_clear();
+    render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     return false;
 }
 
