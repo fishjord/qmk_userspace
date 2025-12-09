@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 #include "layers.h"
-#include "rgb_layers.h"
 
 /* Rotary encoder variables used to hold down Command (GUI) key while cycling through open programs. */
 bool     is_cmd_tab_active = false;

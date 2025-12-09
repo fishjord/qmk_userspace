@@ -14,3 +14,4 @@ DEBOUNCE_TYPE = asym_eager_defer_pk
 OS_DETECTION_ENABLE = yes
 
 SRC += oled.c
+SRC += rgb_layers.c
