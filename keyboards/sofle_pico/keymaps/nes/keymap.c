@@ -19,18 +19,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
     [_QWERTY] = LAYOUT(
         QK_GESC,    KC_1,    KC_2,     KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-        KC_TAB,     KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
+         KC_TAB,    KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
         KC_LSFT,    KC_A,    KC_S,     KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-        KC_LCTL,    KC_Z,    KC_X,     KC_C,    KC_V,    KC_B, KC_MUTE,     _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
-                           KC_GRV,  KC_LGUI, KC_LALT,   MO(1), SC_SSPC,     SC_SENT,   MO(1), KC_RALT,  KC_APP,  KC_DEL
+        KC_LCTL,    KC_Z,    KC_X,     KC_C,    KC_V,    KC_B, KC_MUTE,     _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_DEL,
+                          KC_LEFT,  KC_RGHT, KC_LALT,   MO(1), SC_SSPC,     SC_SENT,   MO(1), KC_RGUI,   KC_UP, KC_DOWN
     ),
     [_LOWER] = LAYOUT(
-	RM_TOGG, RM_NEXT, RM_PREV, RM_VALU, RM_VALD, _______,                        RM_SPDU, RM_SPDD, _______, _______, _______, _______,
-        _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,                        KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______, _______,
-        _______, KC_UNDS, KC_PLUS, KC_MINS,  KC_EQL, _______,                        KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______, 
-        _______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, QK_BOOT,
+	    _______, RM_TOGG, RM_NEXT, RM_PREV, RM_VALU, RM_VALD,                        RM_SPDU, RM_SPDD, _______, _______, _______,  QK_RBT,
+        _______, _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR,                        KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______, _______,
+         KC_GRV, KC_UNDS, KC_PLUS, KC_MINS,  KC_EQL, _______,                        KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______, 
+        _______, _______, _______, _______, _______, _______, _______,      _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______, _______,
 
-	                  KC_CAPS, _______, _______, _______,  KC_DEL,      KC_BSPC, _______, _______, _______, _______
+	                      KC_CAPS, _______, _______, _______,  KC_DEL,      KC_BSPC, _______, _______, _______, QK_BOOT
     )
 };
 // clang-format on
