@@ -2,6 +2,7 @@
     "userspace_version": "1.1",
     "build_targets": [
         ["nest/rev0", "nes"],
-        ["nest/hand_wired", "nes"]
+        ["nest/hand_wired", "nes"],
+        ["nest/hand_wired", "handwired"]
     ]
 }
