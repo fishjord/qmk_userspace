@@ -1,0 +1,17 @@
+POINTING_DEVICE_ENABLE = yes
+VIA_ENABLE = yes
+POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
+
+BOOTMAGIC_ENABLE = yes
+
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+
+CAPS_WORD_ENABLE = yes
+
+DEBOUNCE_TYPE = asym_eager_defer_pk 
+
+OS_DETECTION_ENABLE = yes
+
+SRC += oled.c
+SRC += rgb_layers.c
