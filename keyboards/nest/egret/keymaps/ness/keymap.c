@@ -14,10 +14,10 @@ enum egret_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ESC,
-                                   KC_LGUI, LOWER,   KC_SPC,          KC_ENT,   RAISE,   KC_RALT
+        QK_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_A,    KC_S,    LALT_T(KC_D), LSFT_T(KC_F), KC_G,            KC_H,    RSFT_T(KC_J), RALT_T(KC_K), KC_L,    KC_SCLN, KC_QUOT,
+        KC_RCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                                   KC_LALT, LOWER,   KC_SPC,          KC_ENT,   RAISE,   KC_RGUI
     ),
     [_LOWER] = LAYOUT(
         KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,                   XXXXXXX, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
