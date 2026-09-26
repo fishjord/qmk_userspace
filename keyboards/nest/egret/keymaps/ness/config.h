@@ -1,5 +1,4 @@
-#define CIRQUE_PINNACLE_TAP_ENABLE
-#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
+#pragma once
 
 // Make Tap Toggle (TT) trigger on a double-tap instead of the default 5 taps
 #define TAPPING_TOGGLE 2

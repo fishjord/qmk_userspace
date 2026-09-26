@@ -3,40 +3,44 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _BASE = 0,
-    _NAV_SYM,
-    _MEDIA
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
 };
 
-#define WORD_L   LCTL(KC_LEFT)
-#define WORD_R   LCTL(KC_RGHT)
-#define LINE_STR KC_HOME
-#define LINE_END KC_END
-#define NAV_SYM  MO(_NAV_SYM)
+#define LOWER TT(_LOWER)
+#define RAISE TT(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                          KC_LCTL, KC_LALT, KC_SPC,               KC_ENT,  NAV_SYM
+    [_QWERTY] = LAYOUT(
+        QK_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_TAB,  KC_A,    KC_S,    LALT_T(KC_D), LSFT_T(KC_F), KC_G,        KC_H,    RSFT_T(KC_J), RALT_T(KC_K), KC_L,    KC_SCLN, KC_QUOT,
+        KC_RCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+                          KC_LALT, LOWER,   KC_SPC,               KC_ENT,  RAISE
     ),
-    [_NAV_SYM] = LAYOUT(
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    LINE_STR,KC_UP,   LINE_END,KC_PGUP, KC_DEL,
-        KC_TILD, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_EQL,      KC_PLUS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_PIPE,
-        KC_LSFT, KC_LCBR, KC_RCBR, KC_LABK, KC_RABK, KC_UNDS,     WORD_L,  KC_MINS, KC_ASTR, WORD_R,  KC_AMPR, KC_BSLS,
-                          KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS
+    [_LOWER] = LAYOUT(
+        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,     XXXXXXX, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+                          _______, _______, _______,              _______, MO(_ADJUST)
     ),
-    [_MEDIA] = LAYOUT(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        KC_CAPS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, KC_MPRV, KC_MNXT, KC_MSTP, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                          KC_TRNS, KC_TRNS, KC_TRNS,              KC_TRNS, KC_TRNS
+    [_RAISE] = LAYOUT(
+        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,     XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX,
+                          _______, MO(_ADJUST), _______,          _______, _______
+    ),
+    [_ADJUST] = LAYOUT(
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+                          _______, _______, _______,              _______, _______
     )
 };
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (IS_LAYER_ON(_NAV_SYM)) {
+    if (IS_LAYER_ON(_RAISE)) {
         mouse_report.h = mouse_report.x / 4;
         mouse_report.v = -(mouse_report.y / 4);
         mouse_report.x = 0;
