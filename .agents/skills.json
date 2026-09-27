@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "path": "/home/fishjord/agent_skills/skills",
+      "include_only": [
+        "^qmk-.*"
+      ]
+    }
+  ]
+}

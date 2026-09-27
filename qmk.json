@@ -5,6 +5,7 @@
         ["nest/charybdis_mini", "ness"],
         ["nest/crane", "ness"],
         ["nest/egret", "ness"],
-        ["nest/raven", "ness"]
+        ["nest/raven", "ness"],
+        ["nest/tbk_mini", "ness"]
     ]
 }
