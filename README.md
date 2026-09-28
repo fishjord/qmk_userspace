@@ -1,6 +1,24 @@
 # QMK Userspace
 
-This is a template repository which allows for an external set of QMK keymaps to be defined and compiled. This is useful for users who want to maintain their own keymaps without having to fork the main QMK repository.
+This repository contains Ness's custom QMK userspace configuration, keymaps, and keyboard definitions used to build **wired** firmware for personal keyboards, including the Nest keyboard family (Crane, Egret, Raven) as well as boards like the Charybdis and TBK Mini.
+
+## Related Repositories
+
+- **Keyboard PCBs & Design Files**: [nest_keyboards](https://github.com/fishjord/nest_keyboards) — Hardware designs, schematics, KiCad PCB files, Ergogen configs, and 3D-printable cases/plates for the Nest keyboard family.
+- **Wireless Firmware (ZMK)**: [zmk-config](https://github.com/fishjord/zmk-config) — ZMK configurations, shields, and keymaps for building wireless Bluetooth firmware.
+
+## Architecture: Custom Keyboard Definitions & Symlinking
+
+Standard QMK userspace repositories typically only store custom user keymaps (`keyboards/<keyboard>/keymaps/<user>/`) and shared user code (`users/<user>/`), relying on the core `qmk_firmware` repository for all keyboard hardware definitions (pinouts, matrix configuration, `info.json`, `rules.mk`).
+
+In this repository, custom keyboard definitions are stored directly within userspace under [`keyboards/nest/`](keyboards/nest/). To allow standard QMK tools and GitHub Actions to compile targets for these keyboards without maintaining a heavy fork of the entire `qmk_firmware` repository, the keyboard definition directory is symlinked into `qmk_firmware`:
+
+```bash
+# Example: Link the Nest keyboard tree into your local qmk_firmware clone
+ln -s "$(realpath keyboards/nest)" /path/to/qmk_firmware/keyboards/nest
+```
+
+This approach keeps hardware definitions and personal keymaps version-controlled together in userspace while compiling cleanly against upstream `qmk_firmware`.
 
 ## Howto configure your build targets
 
