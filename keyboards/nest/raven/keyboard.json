@@ -18,8 +18,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["GP8", "GP7", "GP6", "GP5", "GP4", "GP3"],
-        "rows": ["GP28", "GP27", "GP26", "GP15", "GP14"]
+        "cols": ["GP21", "GP23", "GP20", "GP22", "GP26", "GP27"],
+        "rows": ["GP5", "GP6", "GP7", "GP8", "GP9"]
     },
     "split": {
 	    "bootmagic": {
@@ -81,24 +81,18 @@
                 {"label": "C", "matrix": [3, 3], "x": 3, "y": 3},
                 {"label": "V", "matrix": [3, 4], "x": 4, "y": 3.3},
                 {"label": "B", "matrix": [3, 5], "x": 5, "y": 3.45},
-                {"label": "Mute", "matrix": [4, 5], "x": 6.2, "y": 3.45},
-                {"label": "Pause", "matrix": [9, 5], "x": 7.8, "y": 3.45},
                 {"label": "N", "matrix": [8, 5], "x": 9, "y": 3.45},
                 {"label": "M", "matrix": [8, 4], "x": 10, "y": 3.3},
                 {"label": ",", "matrix": [8, 3], "x": 11, "y": 3},
                 {"label": ".", "matrix": [8, 2], "x": 12, "y": 3.3},
                 {"label": "/", "matrix": [8, 1], "x": 13, "y": 3.7},
                 {"label": "RShift", "matrix": [8, 0], "x": 14, "y": 3.7},
-                {"label": "LCtrl", "matrix": [4, 0], "x": 2, "y": 4.3},
-                {"label": "LGUI", "matrix": [4, 1], "x": 3, "y": 4},
-                {"label": "LCmnd", "matrix": [4, 2], "x": 4, "y": 4.3},
-                {"label": "LAlt", "matrix": [4, 3], "x": 5.1, "y": 4.5, "h": 1.5},
-                {"label": "Enter", "matrix": [4, 4], "x": 6.1, "y": 4.5, "h": 1.5},
-                {"label": "Space", "matrix": [9, 4], "x": 7.9, "y": 4.5, "h": 1.5},
-                {"label": "RAlt", "matrix": [9, 3], "x": 8.9, "y": 4.5, "h": 1.5},
-                {"label": "RCmnd", "matrix": [9, 2], "x": 10, "y": 4.3},
-                {"label": "RGui", "matrix": [9, 1], "x": 11, "y": 4},
-                {"label": "RCtrl", "matrix": [9, 0], "x": 12, "y": 4.3}
+                {"matrix": [4, 3], "x": 4, "y": 4.8},
+                {"matrix": [4, 4], "x": 5, "y": 4.8},
+                {"matrix": [4, 5], "x": 6, "y": 4.5, "h": 1.5},
+                {"matrix": [9, 5], "x": 8, "y": 4.5, "h": 1.5},
+                {"matrix": [9, 4], "x": 9, "y": 4.8},
+                {"matrix": [9, 3], "x": 10, "y": 4.8}
             ]
         }
     }
